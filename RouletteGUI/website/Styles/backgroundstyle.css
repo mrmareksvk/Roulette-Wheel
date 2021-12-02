@@ -1,0 +1,27 @@
+#mainborder {
+  border: 10px solid rgb(231, 143, 10);
+  background-color: black;
+}
+
+html,
+body {
+  background-color: black;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+#noborder {
+  border: 1px solid white;
+  background-color: black;
+}
+
+#canvasnoborder {
+  border: 1px solid white;
+  background-color: black;
+}
+
+#i {
+  bgcolor: #1900ff;
+}
