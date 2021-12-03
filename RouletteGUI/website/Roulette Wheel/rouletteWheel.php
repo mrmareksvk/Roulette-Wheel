@@ -1,17 +1,10 @@
-<table id="canvasnoborder" width="450" height="450">
-    <tr>
-        <td align="center">
-            <svg id="dynamiccan" height="450" width="450">
-            </svg>
-
-        </td>
-    </tr>
-</table>
+<svg id="dynamiccan" height="90%" width="90%" viewBox="0 0 100% 100%" preserveAspectRatio="none">
+</svg>
 
 <script>
-var width1 = document.getElementById('canvasnoborder').offsetWidth;
-var height1 = document.getElementById('canvasnoborder').offsetHeight;
-//alert("width" + width1 + ",height" + height1);
+var width1 = document.querySelector('#dynamiccan').width.baseVal.value;
+var height1 = document.querySelector('#dynamiccan').height.baseVal.value;
+alert("width" + width1 + ",height" + height1);
 var arcsegments = 1 / 12;
 var LEDs = [
     [1, '#1900ff'],

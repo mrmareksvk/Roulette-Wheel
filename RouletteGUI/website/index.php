@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 
-<thead>
+<head>
     <?php include 'Head\head.php';?>
-</thead>
+</head>
 
-<tbody>
+<body>
     <?php include 'Body\body.php';?>
-</tbody>
+</body>
 
 </html>

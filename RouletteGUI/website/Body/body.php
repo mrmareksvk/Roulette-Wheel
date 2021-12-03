@@ -11,28 +11,18 @@
 
     <section class="main">
 
-        <aside>
-            <div class="roulette">
-                Fan Image
-            </div>
-            <div class="roulette">
-                Games
-            </div>
-        </aside>
-
-        <aside>
-            <div class="roulette">
-                <h2>Roulette Wheel</h2>
-                <?php include 'Roulette Wheel\rouletteWheel.php';?>
-            </div>
-        </aside>
+        <table class="mainborder">
+            <tr>
+                <td>
+                    <?php include 'Body\cell1.php';?>
+                </td>
+                <td valign="center" align="center">
+                    <?php include 'Roulette Wheel\rouletteWheel.php';?>
+                </td>
+            </tr>
+        </table>
 
     </section>
-    <section class="leftbartop">
-
-
-    </section>
-    <section class="leftbarbottom"></section>
 
     <footer>
 
