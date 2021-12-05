@@ -4,7 +4,7 @@
 
 html,body {
   font-family: "Abril Fatface", cursive;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 300;
   color: azure;
   background-color: black;
@@ -25,12 +25,12 @@ html,body {
 
 h1 {
   margin: 0 0 1em 0;
-  font-size: 2.8em;
+  font-size: 3em;
   font-weight: 700;
 }
 h2 {
   margin: 0 0 0.5em 0;
-  font-size: 1.6em;
+  font-size: 2em;
   font-weight: 700;
   line-height: 1.1em;
 }
@@ -50,11 +50,11 @@ p {
 }
 
 a {
-  font-size: 1.2em;
+  font-size: 1em;
   text-decoration: none;
   color: #fff;
   border: 1px solid #fff;
-  padding: 4px 15px;
+  padding: 2px 10px;
   transition: background-color;
 }
 

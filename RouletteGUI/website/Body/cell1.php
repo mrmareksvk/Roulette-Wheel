@@ -19,6 +19,8 @@
                 </tr>
             </table>
         </td>
+    </tr>
+    <tr>
         <td>
             <table class="Holographiccontroller">
                 <tr>
@@ -86,7 +88,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <a id="state2" href="#">2.Roulette
+                        <a id="RouletteStart" href="#" onclick="RouletteSpin();">2.Roulette
                     </td>
                 </tr>
             </table>

@@ -13,11 +13,10 @@
 
         <table class="mainborder">
             <tr>
-                <td>
+                <td width="30px">
                     <?php include 'Body\cell1.php';?>
                 </td>
-                <td valign="center" align="center">
-                    <?php include 'Roulette Wheel\rouletteWheel.php';?>
+                <td id="roulettecontainer" valign="center" align="center">
                 </td>
             </tr>
         </table>
