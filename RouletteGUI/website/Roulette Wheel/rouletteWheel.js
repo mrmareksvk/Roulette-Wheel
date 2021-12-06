@@ -45,13 +45,25 @@ document.getElementById('roulettecontainer').innerHTML =
 //alert("width" + width1 + ",height" + height1);
 var arcsegments = 1 / 12;
 
-for (i = 0; i < 24; i++) {
-    //   alert(LEDs[i][1]);
+popLines();
+popLEDs();
 
-    document.getElementById('dynamiccan').innerHTML += '<defs><filter id="sofGlow' + i + '" height="400%" width="400%" x="-150%" y="-150%"><!-- Thicken out the original shape --><feMorphology operator="dilate" radius="4" in="SourceAlpha" result="thicken" /><!-- Use a gaussian blur to create the soft blurriness of the glow --><feGaussianBlur in="thicken" stdDeviation="10" result="blurred" /><!-- Change the colour --><feFlood flood-color="' + LEDs[i][1] + '" result="glowColor" /><!-- Color in the glows --><feComposite in="glowColor" in2="blurred" operator="in" result="softGlow_colored" /><!--	Layer the effects together --><feMerge><feMergeNode in="softGlow_colored"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>';
+function popLines(){
+    for (i = 0; i < 24; i++) {
+        //alert(LEDs[i][1]);
 
-    document.getElementById('dynamiccan').innerHTML += '<path id="arc' + (i + 1) +
-        '" fill="none" stroke="white" stroke-width="3" filter="url(#sofGlow' + i + ')"/>';
+        document.getElementById('dynamiccan').innerHTML += '<path id="arc' + (i + 1) +
+            '" fill="none" stroke="white" stroke-width="3" filter="url(#sofGlow' + (i + 1) + ')"/>';
+    }
+}
+
+function popLEDs(){
+    for (i = 0; i < 24; i++) {
+        //alert(LEDs[i][1]);
+
+        document.getElementById('dynamiccan').innerHTML += '<defs><filter id="sofGlow' + (i + 1) + '" height="400%" width="400%" x="-150%" y="-150%"><!-- Thicken out the original shape --><feMorphology operator="dilate" radius="4" in="SourceAlpha" result="thicken" /><!-- Use a gaussian blur to create the soft blurriness of the glow --><feGaussianBlur in="thicken" stdDeviation="10" result="blurred" /><!-- Change the colour --><feFlood flood-color="' + LEDs[i][1] + '" result="glowColor" /><!-- Color in the glows --><feComposite in="glowColor" in2="blurred" operator="in" result="softGlow_colored" /><!--	Layer the effects together --><feMerge><feMergeNode in="softGlow_colored"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>';
+
+    }
 }
 
 
@@ -153,18 +165,41 @@ function describeArc(x, y, radius, startAngle, endAngle) {
 
 function RouletteSpin() {
     
-    var oldColor1;
-    var oldColor2;
-    for (i = 0; i < 12; i++) {
-        oldColor1 = document.querySelector('#sofGlow' + i).childNodes[5].attributes[0].value;
-        oldColor2 = document.querySelector('#sofGlow' + (i+12)).childNodes[5].attributes[0].value;
-        document.querySelector('#sofGlow' + i).childNodes[5].attributes[0].value = "white";
-        document.querySelector('#sofGlow' + (i+12)).childNodes[5].attributes[0].value = "white";
-        sleep(500);
-        alert("next");
-        document.querySelector('#sofGlow' + i).childNodes[5].attributes[0].value = oldColor1;
-        document.querySelector('#sofGlow' + (i+12)).childNodes[5].attributes[0].value = oldColor2;
-    }
+    //var anicount = 1;
+    var LEDcount = 1;
+    var speed = 100;
+    var LEDcount = rand(1,12);
+    let start = Date.now(); // remember start time
+
+    let timer = setInterval(function(){
+        let timePassed = Date.now() - start;
+
+        for (i = 0; i < 24; i++) {
+            //   alert(LEDs[i][1]);
+            document.querySelector('#sofGlow' + (i+1)).childNodes[5].attributes[0].value = LEDs[i][1];
+        }
+
+        document.querySelector('#sofGlow' + LEDcount).childNodes[5].attributes[0].value = "white";
+        document.querySelector('#sofGlow' + (LEDcount+12)).childNodes[5].attributes[0].value = "white";
+
+        //anicount ++;
+        LEDcount ++;
+
+        if (LEDcount == 13) {
+            LEDcount = 1;
+            //alert(LEDs[i][1]);
+          }
+
+        if (timePassed >= 6000) {
+            clearInterval(timer); // finish the animation after 2 seconds
+            return;
+          }
+
+    }, rand(15,50))
+}
+
+function rand (min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
 }
 
 function sleep(milliseconds) {
