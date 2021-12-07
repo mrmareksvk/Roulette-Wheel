@@ -13,7 +13,7 @@
 
         <table class="mainborder">
             <tr>
-                <td width="30px">
+                <td width="35%">
                     <?php include 'Body\cell1.php';?>
                 </td>
                 <td id="roulettecontainer" valign="center" align="center">

@@ -1,3 +1,4 @@
+// LED Variables
 var LEDs = [
     [1, 'green'],
     [2, 'red'],
@@ -37,6 +38,7 @@ if (height1 < width1) {
     height1 = width1;
 }
 
+// SVG tags
 document.getElementById('roulettecontainer').innerHTML =
 '<svg id="dynamiccan" height="' + height1 +
 '" width="' + width1 +
@@ -45,6 +47,7 @@ document.getElementById('roulettecontainer').innerHTML =
 //alert("width" + width1 + ",height" + height1);
 var arcsegments = 1 / 12;
 
+// Draw Basic Arc Frames
 popLines();
 popLEDs();
 
@@ -66,7 +69,7 @@ function popLEDs(){
     }
 }
 
-
+// Arc paths
 for (i = 0; i < 12; i++) {
     document.getElementById("arc" + (i + 1)).setAttribute("d", describeArc(width1 / 2, height1 / 2, (width1 - 50) / 2, (
         arcsegments *
@@ -79,7 +82,7 @@ for (i = 12; i < 24; i++) {
         360) * i, (arcsegments * 360) * (i + 1)));
 }
 
-
+// All Points of All Arcs
 var points = [
     [0, 0],
     [0, 0],
@@ -108,7 +111,7 @@ var points = [
 ];
 
 
-
+// Get Arc Points
 for (i = 0; i < 24; i++) {
     var info = document.querySelector('#arc' + (i + 1)).attributes[5].nodeValue;
     var points1 = [];
@@ -126,18 +129,15 @@ for (i = 0; i < 24; i++) {
 }
 //alert(points.join("\n"));
 
+// Draw Lines
 for (i = 0; i < 12; i++) {
     //   alert(LEDs[i][1]);
     document.getElementById('dynamiccan').innerHTML += '<line x1="' + points[i][0] + '" y1="' + points[i][1] +
         '" x2="' + points[i + 12][0] + '" y2="' + points[i + 12][1] + '" stroke="white" />';
 }
-/*for (i = 0; i < 12; i++) {
-document.getElementById('dynamiccan').innerHTML +=
-    '<Path x1 = "0" y1 = "0" x2 = "200" y2 = "200" style = "stroke:rgb(255,255,255);stroke-width:2" />';
-}*/
 
 
-
+// Arc Formulas 1
 function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
     var addedDegrees = 5;
     var angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
@@ -148,6 +148,7 @@ function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
     };
 }
 
+// Arc Formulas 2
 function describeArc(x, y, radius, startAngle, endAngle) {
 
     var start = polarToCartesian(x, y, radius, endAngle);
@@ -163,6 +164,7 @@ function describeArc(x, y, radius, startAngle, endAngle) {
     return d;
 }
 
+// Roulette Spin Button Pressed
 function RouletteSpin() {
     
     //var anicount = 1;
@@ -190,7 +192,7 @@ function RouletteSpin() {
             //alert(LEDs[i][1]);
           }
 
-        if (timePassed >= 6000) {
+        if (timePassed >= 3000) {
             clearInterval(timer); // finish the animation after 2 seconds
             return;
           }
@@ -198,10 +200,12 @@ function RouletteSpin() {
     }, rand(15,50))
 }
 
+// Random Function
 function rand (min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
+// Sleep Function 
 function sleep(milliseconds) {
     const date = Date.now();
     let currentDate = null;

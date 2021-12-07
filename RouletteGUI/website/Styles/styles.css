@@ -2,6 +2,7 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap");
 
+/*Page*/
 html,body {
   font-family: "Abril Fatface", cursive;
   font-size: 12px;
@@ -16,7 +17,7 @@ html,body {
 
 #page {
   max-width: 1200px;
-  height: 80%;
+  height: 70%;
   margin: 0 auto;
   position: relative;
 }
@@ -49,18 +50,15 @@ p {
   margin: 0 0 1em 0;
 }
 
+/* Button*/
 a {
   font-size: 1em;
   text-decoration: none;
   color: #fff;
   border: 1px solid #fff;
-  padding: 2px 10px;
+  padding: 1px 10px;
   transition: background-color;
 }
-
-/*a:visited {
-  color: #fd8904;
-}*/
 
 a:hover {
   background-color: rgba(255, 255, 255, 1);
@@ -93,7 +91,7 @@ header div.logo span {
   left: 200px;
 }
 
-/* Section - All */
+/* Body All */
 
 section {
   padding: 0 px;
@@ -107,7 +105,7 @@ section::after {
   clear: both;
 }
 
-/* Section - Main */
+/* Body - Main */
 
 section.main {
   margin-top: 2px;
