@@ -166,7 +166,7 @@ function describeArc(x, y, radius, startAngle, endAngle) {
 
 // Roulette Spin Button Pressed
 function RouletteSpin() {
-    
+
     //var anicount = 1;
     var LEDcount = 1;
     var speed = 100;
@@ -205,7 +205,7 @@ function rand (min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
-// Sleep Function 
+// Sleep Function
 function sleep(milliseconds) {
     const date = Date.now();
     let currentDate = null;

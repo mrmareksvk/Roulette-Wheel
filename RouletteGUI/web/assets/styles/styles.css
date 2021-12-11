@@ -1,0 +1,250 @@
+/* CSS Document for Screens */
+
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap");
+
+/*Page*/
+html,body {
+  font-family: "Abril Fatface", cursive;
+  font-size: 12px;
+  font-weight: 300;
+  color: azure;
+  background-color: black;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+#page {
+  max-width: 1200px;
+  height: 70%;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Text */
+
+h1 {
+  margin: 0 0 1em 0;
+  font-size: 3em;
+  font-weight: 700;
+}
+h2 {
+  margin: 0 0 0.5em 0;
+  font-size: 2em;
+  font-weight: 700;
+  line-height: 1.1em;
+}
+h3 {
+  margin: 0 0 0.5em 0;
+  font-size: 1.3em;
+  font-weight: 700;
+}
+h4 {
+  margin: 0 0 1.5em 0;
+  font-size: 1em;
+  font-weight: 700;
+}
+
+p {
+  margin: 0 0 1em 0;
+}
+
+/* Button*/
+a {
+  font-size: 1em;
+  text-decoration: none;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 1px 10px;
+  transition: background-color;
+}
+
+a:hover {
+  background-color: rgba(255, 255, 255, 1);
+  color:black;
+}
+/* Header */
+
+header {
+  color: black;
+  height: 430px;
+  background: #fd8904;
+  height: 50px;
+}
+
+/*Sign in Logo*/
+header a.btn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+/*Guldbar Logo*/
+header div.logo span {
+  color: wheat;
+  font-size: 1.6em;
+  position: absolute;
+  width: 42%;
+  height: 60px;
+  top: 25px;
+  left: 200px;
+}
+
+/* Body All */
+
+section {
+  padding: 0 px;
+  color: bisque;
+  border: 10px solid #fd8904;
+}
+
+section::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/* Body - Main */
+
+section.main {
+  margin-top: 2px;
+  margin-bottom: 30px;
+  padding: 0;
+  height:100%;
+}
+
+section.main table {
+  width: 100%;
+  text-align: left;
+}
+
+section.main table.mainborder {
+  border: 10px solid #fd8904;
+height: 100%;
+
+}
+
+section.main table.LeftColumn {
+  border: 10px solid #fd8904;
+  height:100%;
+}
+
+section.main table.Holographic {
+  border: 3px solid #fd8904;
+  height:100%;
+  text-align:justify;
+}
+
+section.main table.Holographic #ImageCanvas {
+width:100px;
+}
+
+section.main table.Holographiccontroller {
+  border: 3px solid #fd8904;
+  height:100%;
+  width: 100%;
+}
+
+section.main table.Holographiccontroller a {
+text-align: right;
+}
+
+section.main table.svgdynamic {
+  position: relative;
+}
+
+section.main .content {
+  margin: 15px;
+  background-size: 75px 75px;
+  padding-top: 85px;
+}
+
+/*Navigation*/
+
+/* Media Queries */
+
+/*
+@media screen and (max-width: 1000px) {
+  h1 {
+    font-size: 2.4em;
+  }
+
+  header div.hero {
+    left: 56%;
+  }
+  header div.hero h1 {
+    margin-bottom: 20px;
+  }
+
+
+  section.atmosphere article {
+    padding-left: 400px;
+    background-size: 375px auto;
+  }
+}
+
+@media screen and (max-width: 825px) {
+  h1 {
+    font-size: 2.2em;
+  }
+
+  header {
+    height: 300px;
+  }
+
+  header div.hero {
+    left: 56%;
+  }
+  header div.hero h1 {
+    margin-bottom: 20px;
+  }
+
+
+
+  section.atmosphere article {
+    padding-left: 400px;
+    background-size: 375px auto;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  h1 {
+    font-size: 1.8em;
+  }
+  h2 {
+    font-size: 1.4em;
+  }
+  h3 {
+    font-size: 1.1em;
+  }
+  a.btn {
+    font-size: 1em;
+  }
+
+
+
+  header a.logo {
+    width: 145px;
+    height: 60px;
+  }
+
+  header div.hero {
+    top: 140px;
+    left: 48%;
+  }
+
+  header div.hero h1 {
+    margin-bottom: 20px;
+  }
+
+
+
+  section.atmosphere article {
+    padding-left: 400px;
+    background-size: 375px auto;
+  }
+}
+
+@media screen and (max-width: 760px) {
+}
