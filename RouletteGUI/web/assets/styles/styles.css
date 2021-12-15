@@ -26,14 +26,15 @@ html,body {
 
 h1 {
   margin: 0 0 1em 0;
-  font-size: 3em;
+  font-size: 4em;
   font-weight: 700;
 }
 h2 {
+  color: wheat;
+  font-size: 4.5em;
   margin: 0 0 0.5em 0;
-  font-size: 2em;
+  font-size: 4em;
   font-weight: 700;
-  line-height: 1.1em;
 }
 h3 {
   margin: 0 0 0.5em 0;
@@ -51,7 +52,7 @@ p {
 }
 
 /* Button*/
-a {
+a.btn {
   font-size: 1em;
   text-decoration: none;
   color: #fff;
@@ -60,17 +61,28 @@ a {
   transition: background-color;
 }
 
+a.RouletteStartC{
+  font-size: 4em;
+  text-decoration: none;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 1px 10px;
+  transition: background-color;
+}
+
 a:hover {
-  background-color: rgba(255, 255, 255, 1);
+  background-color: rgb(255, 0, 0);
   color:black;
 }
 /* Header */
 
 header {
-  color: black;
-  height: 430px;
+  position: relative;
+  color: White;
+  -webkit-text-stroke: 1px black;
   background: #fd8904;
-  height: 50px;
+  height: 60px;
+  top:-5;
 }
 
 /*Sign in Logo*/
@@ -82,13 +94,12 @@ header a.btn {
 
 /*Guldbar Logo*/
 header div.logo span {
-  color: wheat;
-  font-size: 1.6em;
+  color: white;
+  -webkit-text-stroke: 1px black;
+  font-size: 4em;
   position: absolute;
-  width: 42%;
-  height: 60px;
-  top: 25px;
-  left: 200px;
+  right: 10px;
+  top:-3px;
 }
 
 /* Body All */

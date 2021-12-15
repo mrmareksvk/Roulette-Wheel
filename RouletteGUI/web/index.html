@@ -5,27 +5,18 @@
     <meta charset="UTF-8" http-equiv="Content-Type" content="text/html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roulette</title>
-
     <link rel="stylesheet" type="text/css" media="screen" href="assets/styles/styles.css">
-
     <script type="text/javascript" src="assets/scripts/paho_mqtt.js"></script>
-
     <script type="text/javascript" src=assets/scripts/mqtt.js></script>
     <!--<script type="text/javascript" src=assets/scripts/data.js></script>-->
-
     <!--<script type="text/javascript" src=assets/scripts/general.js></script>-->
-
     <script src="assets/scripts/roulette.js" defer></script>
 </head>
 
 <body onload="MQTTconnect()">
     <div id="page">
         <header>
-            <div class="logo" title="One-Shot" href="#"><span>Guldbar</span></div>
-            <div class="subtitle">
-                <h1>One Shot - LocalHOST</h1>
-                <a class="btn" title="Sign In" href="#">Sign In</a>
-            </div>
+            <div class="logo" title="One-Shot" href="#"><h1>One Shot - Guldbar</h1><span>LocalHOST</span></div>
         </header>
 
         <section class="main">
@@ -34,137 +25,27 @@
                     <td width="35%">
                         <table class="LeftColumn">
                             <tr>
-                                <td>
-                                    <table class="Holographic">
+                                <td class="States">
+                                    <table>
                                         <tr>
-                                            <td>
-                                                LED Holographic Fan
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Fan Image
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <canvas id="ImageCanvas"></canvas>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <a id="linkfan" href="#">Link Fan</a>
-                                            </td>
-                                            <td>
-                                                <a id="disconnectfan" href="#">Disconnect Fan</a>
+                                            <td align="center">
+                                                <a class="RouletteStartC" id="RouletteStart" href="#" onclick="RouletteSpin();">Spin To Win
                                             </td>
                                         </tr>
                                     </table>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <table class="Holographiccontroller">
-                                        <tr>
-                                            <td>
-                                                Fan Controler
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <table>
-                                                    <tr>
-                                                        <td>
-                                                            1. Calsburg
-                                                        </td>
-                                                        <td>
-                                                            <a id="remove" href="#">Remove</a>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <table>
-                                                    <tr>
-                                                        <td>
-                                                            1. Guldbar
-                                                        </td>
-                                                        <td>
-                                                            <a id="remove" href="#">Remove</a>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <table>
-                                                    <tr>
-                                                        <td>
-                                                            1. Kea Friday Bar
-                                                        </td>
-                                                        <td>
-                                                            <a id="remove" href="#">Remove</a>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <table>
-                                                    <tr>
-                                                        <td>
-                                                            <a id="linkLED" href="#">Link To LED's</a>
-                                                        </td>
-                                                        <td>
-                                                            <a id="disconnectLED" href="#">Disconnect From LED's</a>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            <td class="States">
-                                <table>
-                                    <tr>
-                                        <td>
-                                            States
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a id="state1" href="#">1.Static
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a id="RouletteStart" href="#" onclick="RouletteSpin();">2.Roulette
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
+                        </table>
+                    </td>
+                    <td id="roulettecontainer" valign="center" align="center">
+                    </td>
                 </tr>
             </table>
-
-            </td>
-            <td id="roulettecontainer" valign="center" align="center">
-            </td>
-            </tr>
-            </table>
-
         </section>
 
         <footer>
             &copy; One-Shot
             <div class="content">
-                <a title="Privacy Policy" href="#">Privacy Policy</a>
-                <a title="Terms of Service" href="#">Terms of Service</a>
                 <span id="status">Connection Status: Not Connected</span>
                 <p id="messages"></p>
 
