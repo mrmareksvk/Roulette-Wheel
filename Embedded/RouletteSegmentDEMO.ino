@@ -1,6 +1,6 @@
 /*
-  Embedded program Arduino Serial and Light Control
-  For Project #2 Roulette wheel - KEA PTI 5th. semester
+   Embedded program Arduino Serial and Light Control
+   For Project #2 Roulette wheel - KEA PTI 5th. semester
 */
 
 // LIBRARIES, IMPORTS
@@ -12,9 +12,6 @@
 #define PIN_IN 6
 #define LED_OUT 195
 #define LED_IN 49
-
-#define DIR 1
-
 
 // VARIABLES and CONSTANTS
 const byte ser_max_size = 200;
@@ -75,16 +72,19 @@ void outSegmentRoulette(void) {
     } else {
       seg = 0;
     }
-    for (int segment = seg; segment < 12;  segment++) {
+    for (int segment = seg; segment < 12; segment++) {
       if (segment == 0) {
         s_LEDstart = LED_OUT;
       } else {
         s_LEDstart = LED_OUT - (segment * 16); // 16 ~= # of segment LEDs
       }
-      // if segment run = maximum a segment + 1 == segment_end, break - nechod do posledneho foru 
-      if (segment_run == (runs - 1)){Serial.println("break");return;} 
-      for (int LED = s_LEDstart; LED > s_LEDstart - 16; LED --) {
-        Serial.println(LED);
+      // if segment run = maximum a segment + 1 == segment_end, break - nechod do posledneho foru
+      if (segment_run == (runs - 1)) {
+        // Serial.println("break");
+        return;
+      }
+      for (int LED = s_LEDstart; LED > s_LEDstart - 16; LED--) {
+        // Serial.println(LED); // DEBUG
         strip_out.setPixelColor(LED, strip_out.Color(run_color1, run_color2, run_color3));
         if (LED == s_LEDstart - 15) {
           // do this only in last iteration (substraction error)
@@ -132,6 +132,7 @@ void handleMessage(void) {
     segment_start = com_doc["att"]["start"];
     segment_stop = com_doc["att"]["stop"];
     segment_step = com_doc["att"]["t"];
+    outSegmentRoulette();
   }
 }
 
@@ -160,5 +161,4 @@ void loop() {
     msg_size = 0;
   }
 
-  outSegmentRoulette();
 }
