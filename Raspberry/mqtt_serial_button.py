@@ -1,19 +1,38 @@
+# MQTT_API:
 # https://www.eclipse.org/paho/files/jsdoc/index.html
 import paho.mqtt.client as mqtt
 import json
 import serial
 import random as rand
+
+# EVENTs for LINUX
 from pymouse import PyMouseEvent
 
+# Settings
 PORT_NAME = "/dev/serial0"  # /dev/serial0 / COM#
 PORT_BAUD = 115200
+MQTT_HOST = "broker.hivemq.com"
+MQTT_PORT = 1883
+MQTT_KEEPALIVE = 60
+SUBTOPIC = "kea/guld"
 
 
+""" MQTT RETURN CODE AMSWERS
+0	Connection accepted
+1	Connection refused, unacceptable protocol version
+2	Connection refused, identifier rejected
+3	Connection refused, server unavailable
+4	Connection refused, bad user name or password
+5	Connection refused, not authorized
+"""
+
+
+# Connect / reconnect to MQTT Broker
 def on_connect(client, userdata, flags, rc):
     # print("onConnect")
-    print("MQTT connected with result code " + str(rc))
+    print("MQTT connected with return code " + str(rc))
 
-    MQTTclient.subscribe(subtopic)
+    MQTTclient.subscribe(SUBTOPIC)
 
 
 # Callback on arrival of MQTT message
@@ -36,6 +55,7 @@ def process_message(data):
             # print(out_data)
 
 
+# Create event listener for button
 class Button(PyMouseEvent):
     def __init__(self):
         PyMouseEvent.__init__(self)
@@ -45,9 +65,11 @@ class Button(PyMouseEvent):
             if press:
                 # print("mb")
                 rand.seed()
-
+                # Compact JSON
                 roulette_data = '{{"att":{{"start":{start},"t":{step},"stop":{stop}}},"cmd":"roulette"}}'.format(
-                    start=rand.randrange(1, 13), step=rand.randrange(15, 50), stop=rand.randrange(1, 13)
+                    start=rand.randrange(1, 13),
+                    step=rand.randrange(15, 50),
+                    stop=rand.randrange(1, 13),
                 )
                 out_data = json.dumps(roulette_data).encode("utf-8")
                 ser.write(out_data)
@@ -58,6 +80,8 @@ class Button(PyMouseEvent):
 button = Button()
 button.run()
 
+
+# Test if serial port is open
 try:
     ser = serial.Serial(
         port=PORT_NAME,
@@ -71,18 +95,10 @@ except serial.SerialException as e:
     print(">serial error -", e)
 
 
-host = "broker.hivemq.com"
-port = 1883
-keepalive = 60
-subtopic = "kea/guld"
-
-
 MQTTclient = mqtt.Client()
-
 MQTTclient.on_connect = on_connect
 MQTTclient.on_message = on_message
 
-
-MQTTclient.connect(host, port, keepalive)
+MQTTclient.connect(MQTT_HOST, MQTT_PORT, MQTT_KEEPALIVE)
 
 MQTTclient.loop_forever()
