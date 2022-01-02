@@ -9,8 +9,10 @@ import random as rand
 from pymouse import PyMouseEvent
 
 # Settings
-PORT_NAME = "/dev/serial0"  # /dev/serial0 / COM#
+PORT_NAME = "/dev/ttyACM0"  # /dev/serial0 / COM# /dev/ttyACM0
 PORT_BAUD = 115200
+MSG_END = "\n".encode("utf-8")
+
 MQTT_HOST = "broker.hivemq.com"
 MQTT_PORT = 1883
 MQTT_KEEPALIVE = 60
@@ -48,37 +50,12 @@ def process_message(data):
     except KeyError:
         print(">msg without -cmd")
     else:
-        print(data)
+        # print(data)
         if data["cmd"] == "roulette":
             out_data = json.dumps(data).encode("utf-8")
             ser.write(out_data)
-            # print(out_data)
-
-
-# Create event listener for button
-class Button(PyMouseEvent):
-    def __init__(self):
-        PyMouseEvent.__init__(self)
-
-    def click(self, x, y, button, press):
-        if button == 2:  # 1 = left, 2 = middle, 3 = right
-            if press:
-                # print("mb")
-                rand.seed()
-                # Compact JSON
-                roulette_data = '{{"att":{{"start":{start},"t":{step},"stop":{stop}}},"cmd":"roulette"}}'.format(
-                    start=rand.randrange(1, 13),
-                    step=rand.randrange(15, 50),
-                    stop=rand.randrange(1, 13),
-                )
-                out_data = json.dumps(roulette_data).encode("utf-8")
-                ser.write(out_data)
-        else:  # stop - doesnt work sometimes
-            self.stop()
-
-
-button = Button()
-button.run()
+            ser.write(MSG_END)
+            print(out_data)
 
 
 # Test if serial port is open
@@ -102,3 +79,30 @@ MQTTclient.on_message = on_message
 MQTTclient.connect(MQTT_HOST, MQTT_PORT, MQTT_KEEPALIVE)
 
 MQTTclient.loop_forever()
+
+
+# Create event listener for button
+class Button(PyMouseEvent):
+    def __init__(self):
+        PyMouseEvent.__init__(self)
+
+    def click(self, x, y, button, press):
+        if button == 2:  # 1 = left, 2 = middle, 3 = right
+            if press:
+                print("click")
+                rand.seed()
+                # Compact JSON
+                roulette_data = '{{"att":{{"start":{start},"t":{step},"stop":{stop}}},"cmd":"roulette"}}'.format(
+                    start=rand.randrange(1, 13),
+                    step=rand.randrange(15, 51),
+                    stop=rand.randrange(1, 13),
+                )
+                out_data = json.dumps(roulette_data).encode("utf-8")
+                ser.write(out_data)
+                ser.write(MSG_END)
+        else:  # stop - doesnt work sometimes
+            self.stop()
+
+
+button = Button()
+button.run()
