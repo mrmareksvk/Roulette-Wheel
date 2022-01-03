@@ -13,7 +13,7 @@ if (height1 < width1) {
 
 // SVG tags
 document.getElementById('roulettecontainer').innerHTML =
-    '<svg id="dynamiccan" height="' + height1 +
+    '<svg id="dynamiccan" transform="rotate(88.5)" height="' + height1 +
     '" width="' + width1 +
     '" viewBox="0 0 100% 100%" preserveAspectRatio="none"></svg>';
 var arcsegments = 1 / 12;
@@ -88,7 +88,6 @@ function popLines() {
 function popLEDs() {
     for (i = 0; i < 24; i++) {
         document.getElementById('dynamiccan').innerHTML += '<defs><filter id="sofGlow' + (i + 1) + '" height="400%" width="400%" x="-150%" y="-150%"><!-- Thicken out the original shape --><feMorphology operator="dilate" radius="4" in="SourceAlpha" result="thicken" /><!-- Use a gaussian blur to create the soft blurriness of the glow --><feGaussianBlur in="thicken" stdDeviation="10" result="blurred" /><!-- Change the colour --><feFlood flood-color="' + LEDs[i][1] + '" result="glowColor" /><!-- Color in the glows --><feComposite in="glowColor" in2="blurred" operator="in" result="softGlow_colored" /><!--	Layer the effects together --><feMerge><feMergeNode in="softGlow_colored"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>';
-
     }
 }
 
@@ -151,66 +150,83 @@ for (i = 0; i < 12; i++) {
 }
 
 // ---------- ONCLICK EVENT
-var gameDuration = 3000; // ms
+var gameDuration = 3000; // ms <<<<
 var segmentDuration = 0;
-var activateRoullete = false;
+var activateRoulette = false;
 var data = {};
-data["att"] = {}
+data["att"] = {};
+dbg = false;
+// TODO make automatic test
+const diversants3000 = [15, 20, 24, 25, 30, 40, 49, 50]; // its magic dont touch <<<<<
 
-// TODO: universal JSON-cmd builder
-
-function RouletteSpin() {
-    let LEDcount = rand(1, 12, false);
+function RouletteSpin(debug = false) {
+    dbg = debug;
+    let LEDsegment = randInt(1, 13, false);
+    if (dbg == true) console.log("Start:", LEDsegment)
     data["cmd"] = "roulette"
-    data["att"]["start"] = LEDcount;
-
-    let start = Date.now(); // start time
-    activateRoullete = true;
-
-    let n = 0;
+    data["att"]["start"] = LEDsegment;
+    let startTime = Date.now();
+    activateRoulette = true;
+    let runs = 0; // debug
+    let loops = 0; // debug
 
     let game = setInterval(function() {
-        let timePassed = Date.now() - start;
+        // console.log(runs); //DEBUG
+        if (Date.now() - startTime >= gameDuration) {
+            clearInterval(game);
+
+            activateRoulette = false;
+            if (dbg == true) {
+                console.log("Stop:", LEDsegment);
+                console.log("Runs:", runs, "\n"); // DEBUG -check bug
+            }
+            return;
+        }
+
+        LEDsegment++;
+        runs++;
+
+        if (LEDsegment > 12) {
+            LEDsegment = 1;
+            loops++;
+        }
 
         for (i = 0; i < 24; i++) {
             //console.log(LEDs[i][1]);
             document.querySelector('#sofGlow' + (i + 1)).childNodes[5].attributes[0].value = LEDs[i][1];
         }
 
-        document.querySelector('#sofGlow' + LEDcount).childNodes[5].attributes[0].value = "white";
-        document.querySelector('#sofGlow' + (LEDcount + 12)).childNodes[5].attributes[0].value = "white";
+        document.querySelector('#sofGlow' + LEDsegment).childNodes[5].attributes[0].value = "white";
+        document.querySelector('#sofGlow' + (LEDsegment + 12)).childNodes[5].attributes[0].value = "white";
 
-        ++n;
-
-        if (timePassed >= gameDuration) {
-            clearInterval(game);
-            activateRoullete = false;
-            // console.log(LEDcount); // DEBUG
-            // console.log(n); // DEBUG - check / show bug
-            return;
-        }
-
-        LEDcount++;
-
-        if (LEDcount > 12) {
-            LEDcount = 1;
-        }
-
-    }, rand(15, 50, false))
+    }, gameData(randInt(15, 51), dbg))
 }
 
-// Random Function
-function rand(min, max, dbg = false) {
 
-    let randNum = Math.floor(Math.random() * (max - min)) + min;
-    if (activateRoullete == true) {
-        // console.log(~~(gameDuration / randNum)); // debug - SENT
-        data["att"]["t"] = randNum;
-        data["att"]["stop"] = ((~~(gameDuration / randNum) - (12 - data["att"]["start"])) % 12);
-        if (data["att"]["stop"] == 0) data["att"]["stop"] = 12;
+function gameData(step, dbg = false) {
+    if (dbg == true) console.log("Step:", step)
+    if (activateRoulette == true) {
+        let runPrediction = (~~(gameDuration / step));
+        if (diversants3000.includes(step)) runPrediction--; // magic dont touch
+        let stopPrediction = (runPrediction - (12 - data["att"]["start"])) % 12;
+        if (stopPrediction == 0) stopPrediction = 12;
+
+        if (dbg == true) {
+            console.log("Rp:", runPrediction);
+            console.log("Sp:", stopPrediction);
+        }
+
+        data["att"]["t"] = step;
+        data["att"]["stop"] = stopPrediction
 
         sendData(JSON.stringify(data));
     }
+    return step;
+}
+
+// Pseudo Random Integer Function
+function randInt(min, max, dbg = false) {
+    let randNum = Math.floor(Math.random() * (max - min)) + min;
     if (dbg == true) console.log("Rn:", randNum);
 
     return randNum;

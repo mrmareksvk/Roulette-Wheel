@@ -8,6 +8,8 @@ var clientID = "RouletteControl"; // randomise or unique
 var subTopic = "kea/guldbar"; // change if needed
 var sendTopic = "kea/guld"; // change if needed
 
+var dbg = false;
+
 function MQTTconnect() {
     server = "broker.hivemq.com";
     port = 8000; // 8000 websocket 1883 TCP
@@ -82,7 +84,7 @@ function onSubscribe() {
     mqtt.subscribe(subTopic);
     document.getElementById("messages").innerHTML = "Subscribed to:<br><i>" + subTopic + "</i><br>Waiting for messages.";
 
-    mqtt.send(sendTopic, '{"status":"on"}', 0, false);
+    if (dbg == true) mqtt.send(sendTopic, '{"status":"on"}', 0, false)
 
     return false;
 };
