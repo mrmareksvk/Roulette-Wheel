@@ -46,12 +46,12 @@ def on_message(client, userdata, msg):
 # Additional proccesing if needed - in this version only relay
 def process_message(data):
     try:
-        data["cmd"]  # DEBUG: remove print
+        data["c"]  # DEBUG: remove print
     except KeyError:
         print(">msg without -cmd")
     else:
         # print(data)
-        if data["cmd"] == "roulette":
+        if data["c"] == "rlt":
             out_data = json.dumps(data).encode("utf-8")
             ser.write(out_data)
             ser.write(MSG_END)
@@ -92,7 +92,8 @@ class Button(PyMouseEvent):
                 print("click")
                 rand.seed()
                 # Compact JSON
-                roulette_data = '{{"att":{{"start":{start},"t":{step},"stop":{stop}}},"cmd":"roulette"}}'.format(
+                # TODO: add runs
+                roulette_data = '{{"at":{{"strt":{start},"t":{step},"stp":{stop}}},"c":"rlt"}}'.format(
                     start=rand.randrange(1, 13),
                     step=rand.randrange(15, 51),
                     stop=rand.randrange(1, 13),
@@ -100,7 +101,7 @@ class Button(PyMouseEvent):
                 out_data = json.dumps(roulette_data).encode("utf-8")
                 ser.write(out_data)
                 ser.write(MSG_END)
-        else:  # stop - doesnt work sometimes
+        else:
             self.stop()
 
 
