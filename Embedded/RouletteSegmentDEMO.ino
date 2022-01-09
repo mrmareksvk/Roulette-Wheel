@@ -1,5 +1,5 @@
 /*
-   Embedded program Arduino Serial and Light Control
+   Embedded program Arduino-Raspberry Serial and Light Control (Roulette)
    For Project #2 Roulette wheel - KEA PTI 5th. semester
  */
 
@@ -13,7 +13,7 @@
 #define LED_OUT 194
 #define LED_IN 48
 
-#define DEBUG true // <-printouts
+#define DEBUG false  // <-print outs
 
 // VARIABLES and CONSTANTS
 const byte ser_max_size = 100; // change for longer commands
@@ -30,10 +30,10 @@ byte segment_stop = 0;
 Adafruit_NeoPixel strip_out = Adafruit_NeoPixel(LED_OUT, PIN_OUT, NEO_GRB + NEO_KHZ800);
 Adafruit_NeoPixel strip_in = Adafruit_NeoPixel(LED_IN, PIN_IN, NEO_GRB + NEO_KHZ800);
 
-StaticJsonDocument<ser_max_size> com_doc; // stored in STACK
+StaticJsonDocument<ser_max_size> com_doc;
 
 // FUNCTIONS
-void clearStrip(int strip) { // 1 == outer strip | 2 == inner strip || 12 == both
+void clearStrip(int strip) { // 1 = outer strip | 2 = inner strip | 12 = both
         if (strip == 1) {
                 for (int LED = 0; LED < LED_OUT; LED++) {
                         strip_out.setPixelColor(LED, 0);
@@ -56,12 +56,10 @@ void clearStrip(int strip) { // 1 == outer strip | 2 == inner strip || 12 == bot
         }
 }
 
-void outSegmentRoulette(void) {
+void RouletteGame(void) {
         digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
 
         int seg = 0;
-        int LEDoutRange = LED_OUT;
-        // int LEDinRange = LED_IN;
 
         int run_color1 = random(255);
         int run_color2 = random(255);
@@ -71,130 +69,142 @@ void outSegmentRoulette(void) {
 
         for (int run = 1; run <= segment_runs + 1; run++) {
                 if (run == 1) {
-                        seg = segment_start - 1;
-                        // Serial.println(seg+1); // DEBUG
+                        seg = segment_start;
                 }
+
                 // loop done - reset position, change color
-                if (seg >= 12 && run != 1) {
-                        seg = 0;
+                if (seg > 12 && run != 1) {
+                        seg = 1;
                         run_color1 = random(255);
                         run_color2 = random(255);
                         run_color3 = random(255);
                 }
 
-                if (seg == 0) {
-                        clearStrip(12);
-                        LEDoutRange = LED_OUT;
-                        // LEDinRange = LED_IN;
-
-                } else {
-                        LEDoutRange = LED_OUT - (seg * 16);
-                        // LEDinRange = LED_IN - (seg * 4);
-                }
-
-                for (int LED = LEDoutRange; LED > LEDoutRange -16; LED--) {
-                        // Clear old pixels
-                        if (LED > LED_OUT - 16) {
-                                // PASS - NOCLEAR}
-                        } else {
-                                strip_out.setPixelColor(LED+16, 0);
-                        }
-                        strip_out.setPixelColor(LED, strip_out.Color(run_color1, run_color2, run_color3));
-                        if (LED == LEDoutRange - 15 && seg == 11) {
-                                strip_out.setPixelColor(LED - 1, strip_out.Color(run_color1, run_color2, run_color3));
-                                strip_out.setPixelColor(LED - 2, strip_out.Color(run_color1, run_color2, run_color3));
-                                strip_out.setPixelColor(LED - 3, strip_out.Color(run_color1, run_color2, run_color3));
-                        }
-                }
+                if (DEBUG) Serial.println(seg);
 
                 switch (seg)
                 {
-                case 0:
-                        // Serial.println("s1");
+                case 1:
+                        for (int LED = 194; LED >= 178; LED--) {
+                                strip_out.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
+                                strip_out.setPixelColor(LED-179, 0);
+                        }
                         for (int LED = 48; LED >= 44; LED--) {
                                 strip_in.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_in.setPixelColor(LED-45, 0);
                         }
                         break;
-                case 1:
-                        // Serial.println("s2");
+                case 2:
+                        for (int LED = 178; LED >= 162; LED--) {
+                                strip_out.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
+                                strip_out.setPixelColor(LED+16, 0);
+                        }
                         for (int LED = 44; LED >= 40; LED--) {
                                 strip_in.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_in.setPixelColor(LED+4, 0);
                         }
                         break;
-                case 2:
-                        // Serial.println("s3");
+                case 3:
+                        for (int LED = 162; LED >= 146; LED--) {
+                                strip_out.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
+                                strip_out.setPixelColor(LED+16, 0);
+                        }
                         for (int LED = 40; LED >= 36; LED--) {
                                 strip_in.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_in.setPixelColor(LED+4, 0);
                         }
                         break;
-                case 3:
-                        // Serial.println("s4");
+                case 4:
+                        for (int LED = 146; LED >= 130; LED--) {
+                                strip_out.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
+                                strip_out.setPixelColor(LED+16, 0);
+                        }
                         for (int LED = 36; LED >= 32; LED--) {
                                 strip_in.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_in.setPixelColor(LED+4, 0);
                         }
                         break;
-                case 4:
-                        // Serial.println("s5");
+                case 5:
+                        for (int LED = 130; LED >= 114; LED--) {
+                                strip_out.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
+                                strip_out.setPixelColor(LED+16, 0);
+                        }
                         for (int LED = 32; LED >= 28; LED--) {
                                 strip_in.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_in.setPixelColor(LED+4, 0);
                         }
                         break;
-                case 5:
-                        // Serial.println("s6");
+                case 6:
+                        for (int LED = 114; LED >= 98; LED--) {
+                                strip_out.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
+                                strip_out.setPixelColor(LED+16, 0);
+                        }
                         for (int LED = 28; LED >= 24; LED--) {
                                 strip_in.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_in.setPixelColor(LED+4, 0);
                         }
                         break;
-                case 6:
-                        // Serial.println("s7");
+                case 7:
+                        for (int LED = 98; LED >= 82; LED--) {
+                                strip_out.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
+                                strip_out.setPixelColor(LED+16, 0);
+                        }
                         for (int LED = 24; LED >= 20; LED--) {
                                 strip_in.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_in.setPixelColor(LED+4, 0);
                         }
                         break;
-                case 7:
-                        // Serial.println("s8");
+                case 8:
+                        for (int LED = 82; LED >= 66; LED--) {
+                                strip_out.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
+                                strip_out.setPixelColor(LED+16, 0);
+                        }
                         for (int LED = 20; LED >= 16; LED--) {
                                 strip_in.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_in.setPixelColor(LED+4, 0);
                         }
                         break;
-                case 8:
-                        // Serial.println("s9");
+                case 9:
+                        for (int LED = 66; LED >= 50; LED--) {
+                                strip_out.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
+                                strip_out.setPixelColor(LED+16, 0);
+                        }
                         for (int LED = 16; LED >= 12; LED--) {
                                 strip_in.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_in.setPixelColor(LED+4, 0);
                         }
                         break;
-                case 9:
-                        // Serial.println("s10");
+                case 10:
+                        for (int LED = 50; LED >= 34; LED--) {
+                                strip_out.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
+                                strip_out.setPixelColor(LED+16, 0);
+                        }
                         for (int LED = 12; LED >= 8; LED--) {
                                 strip_in.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_in.setPixelColor(LED+4, 0);
                         }
                         break;
-                case 10:
-                        // Serial.println("s11");
+                case 11:
+                        for (int LED = 34; LED >= 18; LED--) {
+                                strip_out.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
+                                strip_out.setPixelColor(LED+16, 0);
+                        }
                         for (int LED = 8; LED >= 4; LED--) {
                                 strip_in.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_in.setPixelColor(LED+4, 0);
                         }
                         break;
-                case 11:
-                        // Serial.println("s12");
+                case 12:
+                        for (int LED = 18; LED >= 0; LED--) {
+                                strip_out.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
+                                strip_out.setPixelColor(LED+16, 0);
+                        }
                         for (int LED = 4; LED >= 0; LED--) {
                                 strip_in.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_in.setPixelColor(LED+4, 0);
                         }
                         break;
                 }
-
 
                 strip_out.show();
                 strip_in.show();
@@ -205,7 +215,6 @@ void outSegmentRoulette(void) {
                         Serial.println(run);
                         Serial.print("segReal: "); Serial.println(seg);
                 }
-                // if (run == segment_runs + 1) Serial.println(seg); // DEBUG
 
                 delay(segment_step);
         }
@@ -226,7 +235,6 @@ void readSerial(void) {
                                 msg_size++;
                         }
                         else {
-                                // if overflow
                                 if (DEBUG) Serial.println("BUFF OVERFLOW");
                         }
                 }
@@ -244,6 +252,7 @@ void handleMessage(void) {
 
                 msg_size = 0;
                 msg_complete = false;
+
                 return;
         } else {
                 if (DEBUG) Serial.println(">cmd start");
@@ -253,7 +262,7 @@ void handleMessage(void) {
                 segment_runs = com_doc["at"]["r"];
                 segment_stop = com_doc["at"]["stp"];
 
-                outSegmentRoulette();
+                RouletteGame();
 
                 msg_size = 0;
                 msg_complete = false;
