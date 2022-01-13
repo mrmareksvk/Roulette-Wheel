@@ -1,180 +1,176 @@
 /* CSS Document for Screens */
-
 @import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap");
 
 /*Page*/
-html,body {
-  font-family: "Abril Fatface", cursive;
-  font-size: 12px;
-  font-weight: 300;
-  color: azure;
-  background-color: black;
-  height: 100%;
-  width: 100%;
-  padding: 0;
-  margin: 0;
+html, body {
+    font-family: "Abril Fatface", cursive;
+    font-size: 12px;
+    font-weight: 300;
+    color: azure;
+    background-color: black;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
 }
 
 #page {
-  max-width: 1200px;
-  height: 70%;
-  margin: 0 auto;
-  position: relative;
+    max-width: 1200px;
+    height: 70%;
+    margin: 0 auto;
+    position: relative;
 }
 
 /* Text */
-
 h1 {
-  margin: 0 0 1em 0;
-  font-size: 4em;
-  font-weight: 700;
+    margin: 0 0 1em 0;
+    font-size: 4em;
+    font-weight: 700;
 }
+
 h2 {
-  color: wheat;
-  font-size: 4.5em;
-  margin: 0 0 0.5em 0;
-  font-size: 4em;
-  font-weight: 700;
+    color: wheat;
+    font-size: 4.5em;
+    margin: 0 0 0.5em 0;
+    font-size: 4em;
+    font-weight: 700;
 }
+
 h3 {
-  margin: 0 0 0.5em 0;
-  font-size: 1.3em;
-  font-weight: 700;
+    margin: 0 0 0.5em 0;
+    font-size: 1.3em;
+    font-weight: 700;
 }
+
 h4 {
-  margin: 0 0 1.5em 0;
-  font-size: 1em;
-  font-weight: 700;
+    margin: 0 0 1.5em 0;
+    font-size: 1em;
+    font-weight: 700;
 }
 
 p {
-  margin: 0 0 1em 0;
+    margin: 0 0 1em 0;
 }
 
 /* Button*/
 a.btn {
-  font-size: 1em;
-  text-decoration: none;
-  color: #fff;
-  border: 1px solid #fff;
-  padding: 1px 10px;
-  transition: background-color;
+    font-size: 1em;
+    text-decoration: none;
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 1px 10px;
+    transition: background-color;
 }
 
-a.RouletteStartC{
-  font-size: 4em;
-  text-decoration: none;
-  color: #fff;
-  border: 1px solid #fff;
-  padding: 1px 10px;
-  transition: background-color;
+a.RouletteStartC {
+    font-size: 4em;
+    text-decoration: none;
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 1px 10px;
+    transition: background-color;
 }
 
 a:hover {
-  background-color: rgb(255, 0, 0);
-  color:black;
+    background-color: rgb(255, 0, 0);
+    color: black;
 }
-/* Header */
 
+/* Header */
 header {
-  position: relative;
-  color: White;
-  -webkit-text-stroke: 1px black;
-  background: #fd8904;
-  height: 60px;
-  top:-5;
+    position: relative;
+    color: White;
+    -webkit-text-stroke: 1px black;
+    background: #fd8904;
+    height: 60px;
+    top: -5;
 }
 
 /*Sign in Logo*/
 header a.btn {
-  position: absolute;
-  top: 5px;
-  right: 10px;
+    position: absolute;
+    top: 5px;
+    right: 10px;
 }
 
 /*Guldbar Logo*/
 header div.logo span {
-  color: white;
-  -webkit-text-stroke: 1px black;
-  font-size: 4em;
-  position: absolute;
-  right: 10px;
-  top:-3px;
+    color: white;
+    -webkit-text-stroke: 1px black;
+    font-size: 4em;
+    position: absolute;
+    right: 10px;
+    top: -3px;
 }
 
 /* Body All */
-
 section {
-  padding: 0 px;
-  color: bisque;
-  border: 10px solid #fd8904;
+    padding: 0 px;
+    color: bisque;
+    border: 10px solid #fd8904;
 }
 
 section::after {
-  content: "";
-  display: block;
-  clear: both;
+    content: "";
+    display: block;
+    clear: both;
 }
 
 /* Body - Main */
-
 section.main {
-  margin-top: 2px;
-  margin-bottom: 30px;
-  padding: 0;
-  height:100%;
+    margin-top: 2px;
+    margin-bottom: 30px;
+    padding: 0;
+    height: 100%;
 }
 
 section.main table {
-  width: 100%;
-  text-align: left;
+    width: 100%;
+    text-align: left;
 }
 
 section.main table.mainborder {
-  border: 10px solid #fd8904;
-height: 100%;
-
+    border: 10px solid #fd8904;
+    height: 100%;
 }
 
 section.main table.LeftColumn {
-  border: 10px solid #fd8904;
-  height:100%;
+    border: 10px solid #fd8904;
+    height: 100%;
 }
 
 section.main table.Holographic {
-  border: 3px solid #fd8904;
-  height:100%;
-  text-align:justify;
+    border: 3px solid #fd8904;
+    height: 100%;
+    text-align: justify;
 }
 
 section.main table.Holographic #ImageCanvas {
-width:100px;
+    width: 100px;
 }
 
 section.main table.Holographiccontroller {
-  border: 3px solid #fd8904;
-  height:100%;
-  width: 100%;
+    border: 3px solid #fd8904;
+    height: 100%;
+    width: 100%;
 }
 
 section.main table.Holographiccontroller a {
-text-align: right;
+    text-align: right;
 }
 
 section.main table.svgdynamic {
-  position: relative;
+    position: relative;
 }
 
 section.main .content {
-  margin: 15px;
-  background-size: 75px 75px;
-  padding-top: 85px;
+    margin: 15px;
+    background-size: 75px 75px;
+    padding-top: 85px;
 }
 
 /*Navigation*/
-
 /* Media Queries */
-
 /*
 @media screen and (max-width: 1000px) {
   h1 {

@@ -8,7 +8,7 @@ var clientID = "RouletteControl"; // randomise or unique
 var subTopic = "kea/guldbar"; // change if needed
 var sendTopic = "kea/guld"; // change if needed
 
-var dbg = false;
+var dbg = false; // debug
 
 function MQTTconnect() {
     server = "broker.hivemq.com";

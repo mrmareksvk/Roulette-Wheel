@@ -4,14 +4,14 @@ var ratio = 0;
 
 if (height1 < width1) {
     width1 = height1;
-    height1 = height1;
+    // height1 = height1;
 
 } else {
-    width1 = width1;
+    // width1 = width1;
     height1 = width1;
 }
 
-// SVG tags
+// SVG tags - rotation + segments
 document.getElementById('roulettecontainer').innerHTML =
     '<svg id="dynamiccan" transform="rotate(88.5)" height="' + height1 +
     '" width="' + width1 +
@@ -88,6 +88,7 @@ function popLines() {
 function popLEDs() {
     for (i = 0; i < 24; i++) {
         document.getElementById('dynamiccan').innerHTML += '<defs><filter id="sofGlow' + (i + 1) + '" height="400%" width="400%" x="-150%" y="-150%"><!-- Thicken out the original shape --><feMorphology operator="dilate" radius="4" in="SourceAlpha" result="thicken" /><!-- Use a gaussian blur to create the soft blurriness of the glow --><feGaussianBlur in="thicken" stdDeviation="10" result="blurred" /><!-- Change the colour --><feFlood flood-color="' + LEDs[i][1] + '" result="glowColor" /><!-- Color in the glows --><feComposite in="glowColor" in2="blurred" operator="in" result="softGlow_colored" /><!--	Layer the effects together --><feMerge><feMergeNode in="softGlow_colored"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>';
+
     }
 }
 
@@ -154,31 +155,31 @@ var gameDuration = 3000; // ms <<<<
 var segmentDuration = 0;
 var activateRoulette = false;
 var data = {};
-data["att"] = {};
+data["at"] = {};
 dbg = false;
-// TODO make automatic test
+
 const diversants3000 = [15, 20, 24, 25, 30, 40, 49, 50]; // its magic dont touch <<<<<
 
 function RouletteSpin(debug = false) {
     dbg = debug;
     let LEDsegment = randInt(1, 13, false);
     if (dbg == true) console.log("Start:", LEDsegment)
-    data["cmd"] = "roulette"
-    data["att"]["start"] = LEDsegment;
+    data["c"] = "rlt"
+    data["at"]["strt"] = LEDsegment;
     let startTime = Date.now();
     activateRoulette = true;
     let runs = 0; // debug
     let loops = 0; // debug
 
     let game = setInterval(function() {
-        // console.log(runs); //DEBUG
+        // console.log(runs); // debug
         if (Date.now() - startTime >= gameDuration) {
             clearInterval(game);
 
             activateRoulette = false;
             if (dbg == true) {
                 console.log("Stop:", LEDsegment);
-                console.log("Runs:", runs, "\n"); // DEBUG -check bug
+                console.log("Runs:", runs, "\n");
             }
             return;
         }
@@ -192,7 +193,7 @@ function RouletteSpin(debug = false) {
         }
 
         for (i = 0; i < 24; i++) {
-            //console.log(LEDs[i][1]);
+            // console.log(LEDs[i][1]); // debug
             document.querySelector('#sofGlow' + (i + 1)).childNodes[5].attributes[0].value = LEDs[i][1];
         }
 
@@ -202,13 +203,12 @@ function RouletteSpin(debug = false) {
     }, gameData(randInt(15, 51), dbg))
 }
 
-
 function gameData(step, dbg = false) {
     if (dbg == true) console.log("Step:", step)
     if (activateRoulette == true) {
         let runPrediction = (~~(gameDuration / step));
         if (diversants3000.includes(step)) runPrediction--; // magic dont touch
-        let stopPrediction = (runPrediction - (12 - data["att"]["start"])) % 12;
+        let stopPrediction = (runPrediction - (12 - data["at"]["strt"])) % 12;
         if (stopPrediction == 0) stopPrediction = 12;
 
         if (dbg == true) {
@@ -216,8 +216,9 @@ function gameData(step, dbg = false) {
             console.log("Sp:", stopPrediction);
         }
 
-        data["att"]["t"] = step;
-        data["att"]["stop"] = stopPrediction
+        data["at"]["t"] = step;
+        data["at"]["r"] = runPrediction;
+        data["at"]["stp"] = stopPrediction
 
         sendData(JSON.stringify(data));
     }
