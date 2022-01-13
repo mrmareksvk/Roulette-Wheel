@@ -84,125 +84,137 @@ void RouletteGame(void) {
 
                 switch (seg)
                 {
+                        // 8 less
                 case 1:
-                        for (int LED = 194; LED >= 178; LED--) {
+                        for (int LED = 188; LED >= 172; LED--) {
                                 strip_out.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
-                                strip_out.setPixelColor(LED-179, 0);
+                                int erasePixel = LED+16;
+                                if (erasePixel >= LED_OUT) {
+                                        erasePixel -= LED_OUT;
+                                }
+                                strip_out.setPixelColor(erasePixel, 0);
                         }
-                        for (int LED = 48; LED >= 44; LED--) {
+                        for (int LED = 46; LED >= 42; LED--) {
                                 strip_in.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
-                                strip_in.setPixelColor(LED-45, 0);
+                                strip_in.setPixelColor(LED-43, 0);
                         }
+                        strip_in.setPixelColor(47, 0);
                         break;
                 case 2:
-                        for (int LED = 178; LED >= 162; LED--) {
+                        for (int LED = 172; LED >= 156; LED--) {
                                 strip_out.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_out.setPixelColor(LED+16, 0);
                         }
-                        for (int LED = 44; LED >= 40; LED--) {
+                        for (int LED = 42; LED >= 38; LED--) {
                                 strip_in.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_in.setPixelColor(LED+4, 0);
                         }
                         break;
                 case 3:
-                        for (int LED = 162; LED >= 146; LED--) {
+                        for (int LED = 156; LED >= 140; LED--) {
                                 strip_out.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_out.setPixelColor(LED+16, 0);
                         }
-                        for (int LED = 40; LED >= 36; LED--) {
+                        for (int LED = 38; LED >= 34; LED--) {
                                 strip_in.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_in.setPixelColor(LED+4, 0);
                         }
                         break;
                 case 4:
-                        for (int LED = 146; LED >= 130; LED--) {
+                        for (int LED = 140; LED >= 124; LED--) {
                                 strip_out.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_out.setPixelColor(LED+16, 0);
                         }
-                        for (int LED = 36; LED >= 32; LED--) {
+                        for (int LED = 34; LED >= 30; LED--) {
                                 strip_in.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_in.setPixelColor(LED+4, 0);
                         }
                         break;
                 case 5:
-                        for (int LED = 130; LED >= 114; LED--) {
+                        for (int LED = 124; LED >= 108; LED--) {
                                 strip_out.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_out.setPixelColor(LED+16, 0);
                         }
-                        for (int LED = 32; LED >= 28; LED--) {
+                        for (int LED = 30; LED >= 26; LED--) {
                                 strip_in.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_in.setPixelColor(LED+4, 0);
                         }
                         break;
                 case 6:
-                        for (int LED = 114; LED >= 98; LED--) {
+                        for (int LED = 108; LED >= 92; LED--) {
                                 strip_out.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_out.setPixelColor(LED+16, 0);
                         }
-                        for (int LED = 28; LED >= 24; LED--) {
+                        for (int LED = 26; LED >= 22; LED--) {
                                 strip_in.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_in.setPixelColor(LED+4, 0);
                         }
                         break;
                 case 7:
-                        for (int LED = 98; LED >= 82; LED--) {
+                        for (int LED = 92; LED >= 76; LED--) {
                                 strip_out.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_out.setPixelColor(LED+16, 0);
                         }
-                        for (int LED = 24; LED >= 20; LED--) {
+                        for (int LED = 22; LED >= 18; LED--) {
                                 strip_in.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_in.setPixelColor(LED+4, 0);
                         }
                         break;
                 case 8:
-                        for (int LED = 82; LED >= 66; LED--) {
+                        for (int LED = 76; LED >= 60; LED--) {
                                 strip_out.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_out.setPixelColor(LED+16, 0);
                         }
-                        for (int LED = 20; LED >= 16; LED--) {
+                        for (int LED = 18; LED >= 14; LED--) {
                                 strip_in.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_in.setPixelColor(LED+4, 0);
                         }
                         break;
                 case 9:
-                        for (int LED = 66; LED >= 50; LED--) {
+                        for (int LED = 60; LED >= 44; LED--) {
                                 strip_out.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_out.setPixelColor(LED+16, 0);
                         }
-                        for (int LED = 16; LED >= 12; LED--) {
+                        for (int LED = 14; LED >= 10; LED--) {
                                 strip_in.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_in.setPixelColor(LED+4, 0);
                         }
                         break;
                 case 10:
-                        for (int LED = 50; LED >= 34; LED--) {
+                        for (int LED = 44; LED >= 28; LED--) {
                                 strip_out.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_out.setPixelColor(LED+16, 0);
                         }
-                        for (int LED = 12; LED >= 8; LED--) {
+                        for (int LED = 10; LED >= 6; LED--) {
                                 strip_in.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_in.setPixelColor(LED+4, 0);
                         }
                         break;
                 case 11:
-                        for (int LED = 34; LED >= 18; LED--) {
+                        for (int LED = 28; LED >= 12; LED--) {
                                 strip_out.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_out.setPixelColor(LED+16, 0);
                         }
-                        for (int LED = 8; LED >= 4; LED--) {
+                        for (int LED = 6; LED >= 2; LED--) {
                                 strip_in.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_in.setPixelColor(LED+4, 0);
                         }
                         break;
                 case 12:
-                        for (int LED = 18; LED >= 0; LED--) {
+                        for (int LED = 12; LED >= 0; LED--) {
                                 strip_out.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_out.setPixelColor(LED+16, 0);
                         }
-                        for (int LED = 4; LED >= 0; LED--) {
+                        for (int LED = 194; LED >= 188; LED--) {
+                                strip_out.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
+                                strip_out.setPixelColor(194-LED+9, 0);
+                        }
+                        for (int LED = 2; LED >= 0; LED--) {
                                 strip_in.setPixelColor(LED, strip_in.Color(run_color1, run_color2, run_color3));
                                 strip_in.setPixelColor(LED+4, 0);
                         }
+                                strip_in.setPixelColor(48, strip_in.Color(run_color1, run_color2, run_color3));
+                                strip_in.setPixelColor(47, strip_in.Color(run_color1, run_color2, run_color3));
                         break;
                 }
 
@@ -236,6 +248,7 @@ void readSerial(void) {
                         }
                         else {
                                 if (DEBUG) Serial.println("BUFF OVERFLOW");
+                                msg_size = 0;
                         }
                 }
         }
